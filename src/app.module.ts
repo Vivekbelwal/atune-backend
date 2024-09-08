@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
 import { AppResolver } from './app.resolver';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UsersModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -13,7 +14,10 @@ import { AppResolver } from './app.resolver';
       autoSchemaFile: true,
       sortSchema: true,
     }),
+    // TODO: Change to env variable
+    MongooseModule.forRoot('mongodb://0.0.0.0:27017/atune'),
+    UsersModule,
   ],
   providers: [AppService, AppResolver],
 })
-export class AppModule { }
+export class AppModule {}
