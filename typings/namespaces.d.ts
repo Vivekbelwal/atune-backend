@@ -1,3 +1,3 @@
 declare namespace Documents {
-  export type User = import('~/apps/user/user.schema').UserDocument;
+  export type User = import('~/user/user.schema').UserDocument;
 }

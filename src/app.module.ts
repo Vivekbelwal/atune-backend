@@ -4,7 +4,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppResolver } from './app.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersModule } from './user/user.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { UsersModule } from './user/user.module';
     }),
     // TODO: Change to env variable
     MongooseModule.forRoot('mongodb://0.0.0.0:27017/atune'),
-    UsersModule,
+    AuthModule,
+    UserModule,
   ],
   providers: [AppService, AppResolver],
 })

@@ -1,8 +1,11 @@
-import * as crypto from 'crypto';
+import * as bcrypt from 'bcrypt';
 
 function hashPassword(password: string) {
-  // TODO: Use env variable
-  return crypto.createHmac('sha256', 'salt').update(password).digest('hex');
+  return bcrypt.hashSync(password, 10);
 }
 
-export { hashPassword };
+function validatePassword(password: string, hash: string) {
+  return bcrypt.compareSync(password, hash);
+}
+
+export { hashPassword, validatePassword };

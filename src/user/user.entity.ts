@@ -8,7 +8,4 @@ export class User extends BaseItem {
 
   @Field({ description: "User's email" })
   email: string;
-
-  @Field({ description: "User's password" })
-  password: string;
 }

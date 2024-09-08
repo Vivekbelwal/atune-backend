@@ -1,20 +1,15 @@
-import {
-  Document,
-  FilterQuery,
-  Model,
-  QueryOptions,
-  SaveOptions,
-} from 'mongoose';
+import { Document, FilterQuery, Model, QueryOptions, SaveOptions } from 'mongoose';
 import _ from 'lodash';
 
-export class BaseService<
-  T extends Document,
-  C extends Record<string, any> = any,
-> {
+export class BaseService<T extends Document, C extends Record<string, any> = any> {
   Model: Model<T>;
 
   constructor(model: Model<T>) {
     this.Model = model;
+  }
+
+  findOne(query: FilterQuery<T>, options: QueryOptions = {}): Promise<T | null> {
+    return this.Model.findOne(query, options);
   }
 
   findAll(query: FilterQuery<T>, options: QueryOptions = {}): Promise<T[]> {
