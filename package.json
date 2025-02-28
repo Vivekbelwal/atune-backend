@@ -29,6 +29,7 @@
     "@nestjs/mongoose": "^10.0.10",
     "@nestjs/platform-express": "^10.0.0",
     "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
     "graphql": "^16.9.0",
     "graphql-tools": "^9.0.1",
     "lodash": "^4.17.21",
