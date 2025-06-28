@@ -9,6 +9,7 @@ import { SignUpResponse } from './auth.entity';
 import { JwtService } from '@nestjs/jwt';
 import { SignInUserInput, SignUpUserInput } from './auth.input';
 import { validatePassword } from '~/common/utils';
+import { EnvUtil } from '~/common';
 
 @Injectable()
 export class AuthService {
@@ -23,7 +24,7 @@ export class AuthService {
       throw new ConflictException('User already exists');
     }
     const newUser = await this.userService.create(input);
-    const token = this.jwtService.sign({ user: newUser });
+    const token = this.jwtService.sign({ user: newUser }, { secret: EnvUtil.getEnv('JWT_SECRET') });
     return { token, user: newUser };
   }
 
@@ -32,11 +33,11 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    const isPasswordValid = await validatePassword(input.password, user.password);
+    const isPasswordValid = validatePassword(input.password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid password');
     }
-    const token = this.jwtService.sign({ user });
+    const token = this.jwtService.sign({ user }, { secret: EnvUtil.getEnv('JWT_SECRET') });
     return { token, user };
   }
 }
