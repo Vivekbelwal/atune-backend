@@ -6,6 +6,7 @@ import { AppResolver } from './app.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { EnvUtil } from './common';
 
 @Module({
   imports: [
@@ -15,8 +16,7 @@ import { AuthModule } from './auth/auth.module';
       autoSchemaFile: true,
       sortSchema: true,
     }),
-    // TODO: Change to env variable
-    MongooseModule.forRoot('mongodb://0.0.0.0:27017/atune'),
+    MongooseModule.forRoot(EnvUtil.getEnv('MONGODB_URI')),
     AuthModule,
     UserModule,
   ],

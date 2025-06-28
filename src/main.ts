@@ -4,7 +4,7 @@ import { EnvUtil } from './common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors(); // Allow CORS
-  await app.listen(Number(EnvUtil.getEnv('APP_PORT', '5000')));
+  app.enableCors();
+  await app.listen(Number(EnvUtil.getEnv('APP_PORT')));
 }
 bootstrap();
