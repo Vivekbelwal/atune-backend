@@ -21,4 +21,19 @@ declare global {
   }
 
   type StringOrId = Types.ObjectId | string;
+
+  namespace Documents {
+    interface User extends BaseDocument {
+      name: string;
+      email: string;
+      password: string;
+      avatarId?: Types.ObjectId;
+    }
+
+    interface File extends BaseDocument {
+      url: string;
+      type: string;
+      userId: Types.ObjectId;
+    }
+  }
 }
