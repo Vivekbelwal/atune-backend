@@ -18,17 +18,18 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signUp(input: SignUpUserInput): Promise<SignUpResponse> {
+  async signUp(input: SignUpUserInput) {
     const user = await this.userService.findOne({ email: input.email });
     if (user) {
       throw new ConflictException('User already exists');
     }
     const newUser = await this.userService.create(input);
     const token = this.jwtService.sign({ user: newUser }, { secret: EnvUtil.getEnv('JWT_SECRET') });
+
     return { token, user: newUser };
   }
 
-  async signIn(input: SignInUserInput): Promise<SignUpResponse> {
+  async signIn(input: SignInUserInput) {
     const user = await this.userService.findOne({ email: input.email });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -38,6 +39,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
     const token = this.jwtService.sign({ user }, { secret: EnvUtil.getEnv('JWT_SECRET') });
-    return { token, user };
+
+    return { token, user: user };
   }
 }
